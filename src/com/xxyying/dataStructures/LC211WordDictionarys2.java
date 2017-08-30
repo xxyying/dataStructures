@@ -8,6 +8,7 @@ import java.util.Map;
 public class LC211WordDictionarys2 {
 	
 	Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+	
     // Adds a word into the data structure.
     public void addWord(String word) {
         int index = word.length();
