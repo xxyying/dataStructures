@@ -6,57 +6,54 @@ public class Mockup01MakeList {
 			return null;
 		}
 		DoublyLinkedListNode[] array = new DoublyLinkedListNode[2];
-		array = helper(root);
+		array = helper(root, array);
 		return array[0]; 
 	}
 	
-	private DoublyLinkedListNode[] helper(TreeNode root) {
-		DoublyLinkedListNode head = new DoublyLinkedListNode(0);
-		DoublyLinkedListNode tail = new DoublyLinkedListNode(0);
+	private DoublyLinkedListNode[] helper(TreeNode root, DoublyLinkedListNode[] array) {
 		
-		DoublyLinkedListNode headL = new DoublyLinkedListNode(0);
-		DoublyLinkedListNode tailL = new DoublyLinkedListNode(0);
-		DoublyLinkedListNode headR = new DoublyLinkedListNode(0);
-		DoublyLinkedListNode tailR = new DoublyLinkedListNode(0);
-		
-		DoublyLinkedListNode[] array = new DoublyLinkedListNode[2];
-		DoublyLinkedListNode[] leftArr = new DoublyLinkedListNode[2];
-		DoublyLinkedListNode[] rightArr = new DoublyLinkedListNode[2];
-
+		DoublyLinkedListNode head = null;
+		DoublyLinkedListNode tail = null;
 		DoublyLinkedListNode cur = new DoublyLinkedListNode(root.val);
-
 		
+		DoublyLinkedListNode[] arrayL = new DoublyLinkedListNode[2];
+		DoublyLinkedListNode[] arrayR = new DoublyLinkedListNode[2];
+
+	
+		// Single node
 		if(root.left == null && root.right == null) {
 			head = cur;
 			tail = cur;
-			head.prev = tail;
-			tail.next = head;
-			array[0] = head;
-			array[1] = tail;
-			return array;
+			head.next = tail;
+			tail.prev = head;
+//			head.prev = tail;
+//			tail.next = head;
+			return new DoublyLinkedListNode[]{head, tail};
 		}
 		
 		if(root.left != null) {
-			helper(root.left);
-			headL = leftArr[0];
-			tailL = leftArr[1];
-			tailL.next = head;
-			head.prev = tailL;
-			tailL.next = cur;
-			cur.prev = tailL;
+			arrayL = helper(root.left, array); // return left sub-tree head & tail
+			head = arrayL[0];
+			tail = arrayL[1];
+			tail.next = cur;
+			cur.prev = tail;
+//			head.prev = cur;
+//			cur.next = head;
 			}
-		
+		array[0] = arrayL[0];
+		array[1] = cur;		
+			
 		if(root.right != null) {
-			helper(root.right);
-			headR = rightArr[0];
-			tailR = rightArr[1];
-			head.prev = tailR;
-			tailR.next = head;
-			cur.next = headR;
-			headR.prev = cur;
+			arrayR = helper(root.right, array); // return left sub-tree head & tail
+			head = arrayR[0];
+			tail = arrayR[1];
+			cur.next = head;
+			head.prev = cur;			
 			}
-		
-		return new DoublyLinkedListNode[]{leftArr[0], rightArr[1]};
+		array[0] = arrayL[0];
+		array[1] = arrayR[1];
+
+		return array;
 	}
 		
 	public static void main(String[] args) {
@@ -68,6 +65,8 @@ public class Mockup01MakeList {
 		 * 		 2	   5
 		 *      / \
 		 *     1   3
+		 *     
+		 * Output = 1 <-> 2 <-> 3 <-> 4 <-> 5
 		 */
 		
 		TreeNode root1 = new TreeNode(4);
@@ -82,26 +81,32 @@ public class Mockup01MakeList {
 		DoublyLinkedListNode res = test.makeList(root3);
 		System.out.println("One Node Only : ");
 		System.out.println("Head value : " + res.val);
-		System.out.println("head.prev value : " + res.prev.val);
-		System.out.println("tail.next value : " + res.prev.next.val);
-
+		System.out.println("Tail value : " + res.next.val);
 		
+		System.out.println("");		
+		System.out.println("3 Nodes : ");
+		res = test.makeList(root2);
+		System.out.println("Head value : " + res.val);
+		System.out.println("3rd value : " + res.prev.val);
+		System.out.println("2nd value : " + res.next.val);
+		System.out.println("3rd value : " + res.next.next.val);
+		System.out.println("2n value : " + res.next.next.prev.val);
+		System.out.println("1st value : " + res.next.next.next.val);
+
 		System.out.println("");		
 		System.out.println("5 Nodes : ");
 		res = test.makeList(root1);
 		System.out.println("Head value : " + res.val);
-		System.out.println("head.prev value : " + res.prev.val);
-		System.out.println("head.prev.prev value : " + res.prev.next.val);
-
-
-//		System.out.println("");
-//		
-//		System.out.println("3 Nodes : ");
-//		res = test.makeList(root2);
-//		System.out.println("Head value : " + res.val);
-//		System.out.println("head.prev value : " + res.prev.val);
-//		//System.out.println("head.prev.prev value : " + res.prev.prev.val);
-		
+		System.out.println("2nd value : " + res.next.val);
+		System.out.println("3rd value : " + res.next.next.val);
+		System.out.println("4th value : " + res.next.next.next.val);
+		System.out.println("5th value : " + res.next.next.next.next.val);
+		System.out.println("----- REVERSE -----");		
+		System.out.println("4th value : " + res.next.next.next.next.prev.val);
+		System.out.println("3th value : " + res.next.next.next.next.prev.prev.val);
+		System.out.println("2nd value : " + res.next.next.next.next.prev.prev.prev.val);
+		System.out.println("1nd value : " + res.next.next.next.next.prev.prev.prev.prev.val);
+	
 	}
 
 }
