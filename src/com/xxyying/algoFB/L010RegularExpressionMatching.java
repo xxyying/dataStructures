@@ -47,7 +47,29 @@ public class L010RegularExpressionMatching {
 		
 	}
 	
-	
+	public boolean isMatch2(String s, String p) {
+	    if (p.isEmpty()) {
+	        return s.isEmpty();
+	    }
+
+	    if (p.length() == 1 || p.charAt(1) != '*') {
+	        if (s.isEmpty() || (p.charAt(0) != '.' && p.charAt(0) != s.charAt(0))) {
+	            return false;
+	        } else {
+	            return isMatch2(s.substring(1), p.substring(1));
+	        }
+	    }
+	    
+	    //P.length() >=2
+	    while (!s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.')) {  
+	        if (isMatch2(s, p.substring(2))) { 
+	            return true;                     
+	        }                                    
+	        s = s.substring(1);
+	    }
+
+	    return isMatch2(s, p.substring(2));
+	}
 	
 	
 	
@@ -92,6 +114,30 @@ public class L010RegularExpressionMatching {
 		s = "ab";
 		p = ".*";
 		res = test.isMatch(s, p);
+		System.out.println(res);
+		assert res == true;
+		
+		s = "aa";
+		p = "a";
+		res = test.isMatch2(s, p);
+		System.out.println(res);
+		assert res == false;
+		
+		s = "aa";
+		p = "aa";
+		res = test.isMatch2(s, p);
+		System.out.println(res);
+		assert res == true;
+		
+		s = "aaa";
+		p = "a*";
+		res = test.isMatch2(s, p);
+		System.out.println(res);
+		assert res == true;
+		
+		s = "aa";
+		p = ".*";
+		res = test.isMatch2(s, p);
 		System.out.println(res);
 		assert res == true;
 	}
