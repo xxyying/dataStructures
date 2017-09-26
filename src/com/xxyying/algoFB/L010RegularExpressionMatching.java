@@ -140,6 +140,12 @@ public class L010RegularExpressionMatching {
 		res = test.isMatch2(s, p);
 		System.out.println(res);
 		assert res == true;
+		
+		s = "aab";
+		p = "c*d*a*b";
+		res = test.isMatch2(s, p);
+		System.out.println(res);
+		assert res == true;
 	}
 
 }
