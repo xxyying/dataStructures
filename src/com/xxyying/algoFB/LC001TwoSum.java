@@ -23,6 +23,7 @@ public class LC001TwoSum {
 	
 	public static void main(String[] args) {
 		LC001TwoSum test = new LC001TwoSum();
+		
 	}
 
 }
