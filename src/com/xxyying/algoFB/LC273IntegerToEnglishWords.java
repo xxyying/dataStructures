@@ -40,6 +40,10 @@ public class LC273IntegerToEnglishWords {
 		int num = 123;
 		String res = test.numberToWords(num);
 		System.out.println(res);
+		
+		num = 1000;
+		res = test.numberToWords(num);
+		System.out.println(res);
 	}
 
 }
