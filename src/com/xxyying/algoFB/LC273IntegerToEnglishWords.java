@@ -15,9 +15,9 @@ public class LC273IntegerToEnglishWords {
 		while(num > 0) {
 			if(num%1000 != 0) {
 				result = helper(num%1000) + THOUSANDS[i] + " " + result;
-				num/=1000;
-				i++;
 			}
+			num/=1000;
+			i++;
 		}
 		return result.trim();
 	}
@@ -42,6 +42,18 @@ public class LC273IntegerToEnglishWords {
 		System.out.println(res);
 		
 		num = 1000;
+		res = test.numberToWords(num);
+		System.out.println(res);
+		
+		num = 123456;
+		res = test.numberToWords(num);
+		System.out.println(res);
+		
+		num = 1234560;
+		res = test.numberToWords(num);
+		System.out.println(res);
+		
+		num = 1234560000;
 		res = test.numberToWords(num);
 		System.out.println(res);
 	}
